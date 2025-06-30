@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+/* 🌟 Add your theme customizations with @theme */
+@theme {
+  --color-primary: #cdb4db;    /* soft purple */
+  --color-text-gray: #6b7280;
+  --color-bg-light: #f9f9fb;
+  --font-body: "Inter", sans-serif;
+}
