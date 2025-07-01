@@ -6,6 +6,11 @@ in frontend:
 npm i 
 npm run dev
 
+
+<img width="200" alt="image" src="https://github.com/user-attachments/assets/b800f1e3-29f6-437d-b40d-077e1ca46dcf" />
+<img width="200" alt="image" src="https://github.com/user-attachments/assets/8910b9ce-26b6-436e-99fc-0f439d133f00" />
+<img width="1677" alt="image" src="https://github.com/user-attachments/assets/514934f7-db33-4dab-b6ad-fd614dc0bdea" />
+
 # fullstack-user-management-sequelize
 # Fullstack User Management App (Node.js + React + Sequelize)
 
