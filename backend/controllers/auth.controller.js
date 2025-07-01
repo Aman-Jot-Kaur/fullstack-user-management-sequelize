@@ -61,12 +61,11 @@ exports.verifyEmail = async (req, res) => {
 
 
 exports.login = async (req, res) => {
-   
-
   try {
-     const errors = validationResult(req);
+    const errors = validationResult(req);
     if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
-  const { email, password } = req.body;
+
+    const { email, password } = req.body;
     const user = await User.findOne({ where: { email } });
     if (!user) return res.status(404).json({ message: 'User not found' });
     if (!user.isVerified) return res.status(403).json({ message: 'Please verify your email first' });
@@ -86,49 +85,58 @@ exports.login = async (req, res) => {
       { expiresIn: '7d' }
     );
 
-    res.status(200).json({
-      message: 'Login successful',
-      accessToken,
-      refreshToken,
-      user: {
-        id: user.id,
-        fullName: user.fullName,
-        email: user.email,
-        role: user.role,
-        profileImage: user.profileImage,
-      },
-    });
+    // Inside res.status(200).json:
+res.status(200).json({
+  message: 'Login successful',
+  accessToken,
+  refreshToken, // 🆕 Send it in response body
+  user: {
+    id: user.id,
+    fullName: user.fullName,
+    email: user.email,
+    role: user.role,
+    profileImage: user.profileImage,
+  },
+});
+
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Server error' });
   }
 };
 
+// controllers/auth.controller.js
 exports.refreshToken = async (req, res) => {
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1]; // Bearer <token>
+  const token = req.body.refreshToken;
 
   if (!token) return res.status(401).json({ message: 'Refresh token missing' });
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_REFRESH_SECRET);
     const user = await User.findByPk(decoded.userId);
-
     if (!user) return res.status(404).json({ message: 'User not found' });
 
-    const accessToken = jwt.sign(
+    const newAccessToken = jwt.sign(
       { userId: user.id, role: user.role },
       process.env.JWT_SECRET,
       { expiresIn: '15m' }
     );
 
-    return res.status(200).json({ accessToken });
+    const newRefreshToken = jwt.sign(
+      { userId: user.id },
+      process.env.JWT_REFRESH_SECRET,
+      { expiresIn: '7d' }
+    );
 
+    return res.status(200).json({ accessToken: newAccessToken, refreshToken: newRefreshToken });
   } catch (err) {
-    console.error('[refreshToken]', err);
-    return res.status(403).json({ message: 'Invalid or expired refresh token' });
+    return res.status(403).json({ message: 'Invalid refresh token' });
   }
 };
+
+
+
+
 exports.forgotPassword = async (req, res) => {
   const { email } = req.body;
   try {
@@ -139,6 +147,7 @@ exports.forgotPassword = async (req, res) => {
     await sendResetEmail(email, token);
     res.status(200).json({ message: 'Password reset email sent.' });
   } catch (err) {
+    console.log(err)
     res.status(500).json({ message: 'Something went wrong.' });
   }
 };

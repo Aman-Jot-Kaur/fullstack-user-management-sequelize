@@ -16,11 +16,11 @@ router.get('/verify-email', verifyEmail);
 
 
 router.post('/login', validateLogin, login);
-router.post('/refresh', refreshToken);
+router.get('/refreshToken', refreshToken);
 router.post('/forgot-password', forgotPassword);
 router.post('/reset-password', resetPassword);
 
-router.get('/google/callback',
+router.get('/google',
   passport.authenticate('google', { failureRedirect: '/' }),
   (req, res) => {
     // Generate token here

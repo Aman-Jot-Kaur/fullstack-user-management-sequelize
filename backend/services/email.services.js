@@ -1,17 +1,17 @@
 // services/email.service.js
 const nodemailer = require('nodemailer');
 require('dotenv').config();
-
-exports.sendVerificationEmail = async (to, token) => {
-  const verifyLink = `http://localhost:5000/api/auth/verify-email?token=${token}`;
-
-  const transporter = nodemailer.createTransport({
+const transporter = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASS
     }
   });
+exports.sendVerificationEmail = async (to, token) => {
+  const verifyLink = `http://localhost:5000/api/auth/verify-email?token=${token}`;
+
+  
 
   await transporter.sendMail({
     from: `"UserHub 🔐" <${process.env.EMAIL_USER}>`,

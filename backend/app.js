@@ -7,6 +7,9 @@ const authRoutes=require("./routes/auth.routes")
 const userRoutes=require("./routes/user.routes")
 
 const app = express();
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
+
 const session = require('express-session');
 const passport = require('passport');
 
@@ -18,7 +21,10 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:5173',
+  credentials: true 
+}));
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // for form-data
