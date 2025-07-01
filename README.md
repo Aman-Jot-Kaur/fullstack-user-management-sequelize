@@ -7,7 +7,7 @@ npm i
 npm run dev
 
 
-<img width="200" alt="image" src="https://github.com/user-attachments/assets/b800f1e3-29f6-437d-b40d-077e1ca46dcf" />
+<img width="100"  alt="image" src="https://github.com/user-attachments/assets/b800f1e3-29f6-437d-b40d-077e1ca46dcf" />
 <img width="200" alt="image" src="https://github.com/user-attachments/assets/8910b9ce-26b6-436e-99fc-0f439d133f00" />
 <img width="200" alt="image" src="https://github.com/user-attachments/assets/514934f7-db33-4dab-b6ad-fd614dc0bdea" />
 <img width="200" alt="image" src="https://github.com/user-attachments/assets/48efaf76-d079-40f0-970f-f8ba9182d810" />
