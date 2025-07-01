@@ -1,3 +1,11 @@
+in backend folder: 
+npm i 
+node index.js
+
+in frontend:
+npm i 
+npm run dev
+
 # fullstack-user-management-sequelize
 # Fullstack User Management App (Node.js + React + Sequelize)
 
